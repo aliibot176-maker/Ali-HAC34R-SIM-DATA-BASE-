@@ -1,6 +1,5 @@
 const channelList = [
-   {name:"ASIA CUP", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1756982709555.webp?id=16", url:"https://cdn2aws.tamashaweb.com/out/v1/bbe6ba6d0d1c47fbb8042a49b64db630/index.m3u8"},
-  {name:"ASIA CUP Ads Free", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1757480580826.webp?id=17", url:"https://cdn5aws.tamashaweb.com/out/v1/9fff7780125a4614a7f3567bc506dc7a/index.m3u8"},
+   {name:"PKvSA", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1760350251518.webp?id=70", url:"https://cdn01fsd-n.tamashaweb.com:8087/jazzauth/PKvSA-TOT-abr/playlist.m3u8"},
   {name:"EPL", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1755248383950.webp?id=18", url:"https://cdn06khi.tamashaweb.com:8087/jazzauth/EPL-A-abr/live/EPL-banner/chunks.m3u8"},
   {name:"Tamasha News", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1744124970890.webp?id=66", url:"https://cdn12isb.tamashaweb.com:8087/jazzauth/Tamasha-News-abr/playlist.m3u8"},
   {name:"Eurosport", logo:"https://canvas.tamashaweb.com/jazzlive/uploads/channels/1686912440-logo.webp?id=96", url:"https://cdn22lhr.tamashaweb.com:8087/jazzauth/Eurosport-abr/playlist.m3u8"},
@@ -19,5 +18,7 @@ channelList.forEach(ch=>{
   img.onclick=()=>playChannel(img,ch.name,ch.url);
   grid.appendChild(img);
 });
+
+
 
 
