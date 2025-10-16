@@ -38,13 +38,6 @@
       margin: 0 auto 12px auto;
     }
     @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
-    .btn-spinner {
-      border: 4px solid rgba(255,255,255,0.3);
-      border-top: 4px solid #fff;
-      border-radius: 50%;
-      width: 20px; height: 20px;
-      animation: spin 1s linear infinite;
-    }
     #errorMsg, #phoneError {
       color:#ff6b6b; font-weight:bold; display:none; margin-bottom:8px; text-align:center;
     }
@@ -52,31 +45,8 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
 
-<!-- LOGIN SCREEN -->
-<div id="loginScreen" class="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 text-center relative">
-  <h1 class="text-3xl kami-title font-extrabold text-white mb-6">🔑 Login Key</h1>
-  <input id="loginKey" type="text" placeholder="Enter your login key" 
-         class="w-full px-4 py-3 rounded-lg border border-white/30 bg-white/20 text-white placeholder-gray-300 mb-2"/>
-  <p id="loginError" class="text-red-400 font-semibold mb-4 hidden">❌ Wrong Key!</p>
-  <button id="loginBtn" 
-          class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:opacity-90 text-white font-semibold shadow-lg relative">
-    <span id="loginText">Login</span>
-    <div id="loginSpinner" class="btn-spinner hidden"></div>
-  </button>
-  <p class="mt-6 text-white">Join our Telegram channel for updates:</p>
-  <a href="https://t.me/Kami_Flex2" target="_blank" 
-     class="inline-block mt-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
-    🔗 Join Telegram
-  </a>
-</div>
-
-<!-- MAIN SCREEN -->
-<div id="mainScreen" class="hidden w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 relative">
-  <!-- Back Button -->
-  <button onclick="goBack()" class="absolute top-3 left-3 text-white text-lg font-bold px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60">
-    ⬅ Back
-  </button>
-
+<!-- ✅ MAIN SCREEN ONLY -->
+<div id="mainScreen" class="w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 relative">
   <h1 class="text-4xl kami-title font-extrabold text-center mb-8 text-white tracking-wider">
     ⚡ Kami Flex <br> SIM Database
   </h1>
@@ -103,47 +73,6 @@
 </div>
 
 <script>
-const correctKey = "Kami123"; 
-const loginScreen = document.getElementById("loginScreen");
-const mainScreen = document.getElementById("mainScreen");
-const loginKey = document.getElementById("loginKey");
-const loginBtn = document.getElementById("loginBtn");
-const loginText = document.getElementById("loginText");
-const loginSpinner = document.getElementById("loginSpinner");
-const loginError = document.getElementById("loginError");
-
-// ✅ Check saved login
-if(localStorage.getItem("kamiLogin") === "true"){
-  loginScreen.classList.add("hidden");
-  mainScreen.classList.remove("hidden");
-}
-
-// LOGIN LOGIC
-loginBtn.addEventListener("click", () => {
-  const key = loginKey.value.trim();
-  if(!key){ 
-    loginError.innerText = "⚠️ Please enter login key!";
-    loginError.classList.remove("hidden");
-    return; 
-  }
-  loginText.classList.add("opacity-0");
-  loginSpinner.classList.remove("hidden");
-  loginError.classList.add("hidden");
-
-  setTimeout(() => {
-    if(key === correctKey){
-      localStorage.setItem("kamiLogin","true");
-      loginScreen.classList.add("hidden");
-      mainScreen.classList.remove("hidden");
-    } else {
-      loginError.innerText = "❌ Wrong Key!";
-      loginError.classList.remove("hidden");
-    }
-    loginText.classList.remove("opacity-0");
-    loginSpinner.classList.add("hidden");
-  }, 1000);
-});
-
 // SIM DATABASE LOGIC
 const searchBtn = document.getElementById("searchBtn");
 const phoneInput = document.getElementById("phoneInput");
@@ -195,12 +124,6 @@ function copyDetails(btn){
   navigator.clipboard.writeText(text);
   btn.innerText = "✅ Copied!";
   setTimeout(()=>{ btn.innerText="📋 Copy"; },2000);
-}
-
-// ✅ Back button function
-function goBack(){
-  localStorage.removeItem("kamiLogin");
-  window.location.href = "index.html";
 }
 </script>
 
