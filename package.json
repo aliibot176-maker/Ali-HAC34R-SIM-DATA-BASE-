@@ -1,7 +1,16 @@
 {
-  "name": "kami-flex-temp-mail",
+  "name": "kami-flex",
   "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
   "dependencies": {
     "node-fetch": "^2.6.7"
+  },
+  "scripts": {
+    "start": "echo 'Kami Flex running...'",
+    "build": "echo 'No build step required'"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
