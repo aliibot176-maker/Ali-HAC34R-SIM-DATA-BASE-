@@ -1,0 +1,77 @@
+# =========================
+# ✅ Netlify Configuration
+# =========================
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# -------------------------
+# 🔹 Redirects (Routes)
+# -------------------------
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/tool"
+  to = "/tool.html"
+  status = 200
+
+[[redirects]]
+  from = "/jazztv"
+  to = "/jazztv.html"
+  status = 200
+
+[[redirects]]
+  from = "/jazz"
+  to = "/jazz.html"
+  status = 200
+
+[[redirects]]
+  from = "/zong"
+  to = "/zong.html"
+  status = 200
+
+[[redirects]]
+  from = "/file"
+  to = "/file.html"
+  status = 200
+
+[[redirects]]
+  from = "/sports"
+  to = "/sports.html"
+  status = 200
+
+[[redirects]]
+  from = "/temp"
+  to = "/temp.html"
+  status = 200
+
+[[redirects]]
+  from = "/sms"
+  to = "/sms.html"
+  status = 200
+
+[[redirects]]
+  from = "/database"
+  to = "/database.html"
+  status = 200
+
+# -------------------------
+# 🔹 API Routes (Functions)
+# -------------------------
+[[redirects]]
+  from = "/api/tempmail"
+  to = "/.netlify/functions/tempmail"
+  status = 200
+
+[[redirects]]
+  from = "/api/send"
+  to = "/.netlify/functions/send"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/database"
+  status = 200
