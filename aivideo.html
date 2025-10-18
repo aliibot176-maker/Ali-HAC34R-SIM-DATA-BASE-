@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>⚡ Kami Flex — AI Video Generator ⚡</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent1:#00eaff;
+  --accent2:#ff007f;
+  --card-bg:rgba(255,255,255,0.05);
+  --muted:#bfc9d4;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+body{
+  background:radial-gradient(circle at top left,#0b0c1a,#12092a,#1b0b18);
+  color:#fff;min-height:100vh;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:28px 16px;
+}
+.container{width:100%;max-width:720px;}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;margin-bottom:25px;
+  border-radius:999px;background:rgba(255,255,255,0.03);
+  box-shadow:0 6px 24px rgba(0,0,0,0.36);
+}
+header img{
+  width:48px;height:48px;border-radius:50%;
+  border:2px solid var(--accent1);
+  box-shadow:0 0 10px rgba(0,234,255,0.4);
+}
+header .title{
+  flex:1;text-align:center;font-weight:700;font-size:18px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2),#ffea00);
+  background-size:300% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:move 4s linear infinite;
+}
+@keyframes move{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+
+.card{
+  background:var(--card-bg);
+  padding:22px;border-radius:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 8px 40px rgba(0,234,255,0.06);
+}
+h2{color:var(--accent1);text-align:center;margin-bottom:16px}
+.input,textarea,select{
+  width:100%;padding:12px;border-radius:10px;border:none;
+  background:rgba(255,255,255,0.05);color:#fff;margin-bottom:12px;outline:none;
+}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.button{
+  flex:1;padding:12px;border-radius:10px;border:none;
+  background:linear-gradient(90deg,var(--accent2),var(--accent1));
+  color:#000;font-weight:700;cursor:pointer;transition:transform .14s;
+}
+.button:active{transform:scale(.97)}
+#loader{display:none;text-align:center;margin-top:10px}
+.spinner{width:48px;height:48px;border-radius:50%;
+  border:6px solid rgba(255,255,255,0.08);border-top-color:var(--accent1);
+  animation:spin 1s linear infinite;margin:10px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.result{margin-top:20px;text-align:center}
+
+/* ✅ Stylish video player box */
+.video-box{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+  border:2px solid transparent;
+  background:linear-gradient(120deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+  box-shadow:0 0 25px rgba(0,234,255,0.12);
+}
+.video-box::before{
+  content:"";
+  position:absolute;inset:0;
+  padding:2px;border-radius:16px;
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+video{
+  width:100%;height:auto;border-radius:14px;display:block;
+}
+
+/* 🔄 Loader inside video box */
+.inner-loader{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.inner-spinner{
+  width:60px;height:60px;border-radius:50%;
+  border:6px solid rgba(255,255,255,0.1);
+  border-top-color:var(--accent1);
+  animation:spin 1s linear infinite;
+}
+.inner-loader p{margin-top:8px;color:#bfc9d4;font-size:13px}
+.footer{margin-top:18px;text-align:center;color:#aaa;font-size:14px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="images/kami_logo.png" alt="logo">
+      <div class="title">⚡ Kami Flex — AI Video Generator ⚡</div>
+      <img src="images/kami_logo.png" alt="logo">
+    </header>
+
+    <div class="card">
+      <h2>🎬 Generate AI Video</h2>
+      <textarea id="prompt" class="input" rows="3" placeholder="Enter your idea...">A cat riding a skateboard in space, high resolution</textarea>
+
+      <div class="controls">
+        <select id="quality" class="input" style="max-width:200px">
+          <option>240p</option>
+          <option>360p</option>
+          <option>480p</option>
+          <option selected>720p</option>
+          <option>1080p</option>
+        </select>
+        <button id="generateBtn" class="button">🖌️ Generate Video</button>
+        <button id="telegramBtn" class="button" style="flex:0 0 150px;background:rgba(255,255,255,0.05);color:var(--accent1);border:1px solid rgba(255,255,255,0.1)">📢 Join Telegram</button>
+      </div>
+
+      <div id="loader">
+        <div class="spinner"></div>
+        <div style="font-size:13px;color:#bbb">Generating... please wait</div>
+      </div>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <div class="footer">💫 Powered by Kami Flex AI — 2025</div>
+  </div>
+
+  <!-- ✅ External JS -->
+  <script src="aivideo.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Kami Flex — AI Generator ⚡</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent1:#00eaff;
+  --accent2:#ff007f;
+  --bg1:#0b0c1a;
+  --bg2:#12092a;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+body{
+  background:linear-gradient(135deg,var(--bg1),var(--bg2),#1b0b18);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:24px;
+}
+
+/* Top bar */
+.topbar{
+  width:100%;
+  max-width:720px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  padding:10px 14px;
+  margin-bottom:30px;
+  background:rgba(255,255,255,0.03);
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+.topbar img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:2px solid var(--accent1);
+}
+.topbar .name{
+  font-weight:700;
+  font-size:18px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2),#ffea00);
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:move 4s linear infinite;
+}
+@keyframes move{
+  0%{background-position:0%;}
+  50%{background-position:100%;}
+  100%{background-position:0%;}
+}
+
+/* Center main logo */
+header{
+  text-align:center;
+  margin-bottom:30px;
+}
+header img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:3px solid var(--accent1);
+  box-shadow:0 0 18px rgba(0,234,255,0.4);
+  margin-bottom:12px;
+}
+header h1{
+  font-size:26px;
+  font-weight:700;
+  background: linear-gradient(90deg, #ff007f, #00eaff, #ffea00, #ff007f);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: move 4s linear infinite;
+  margin-bottom:16px;
+}
+
+/* Buttons */
+.container{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  width:100%;
+  max-width:400px;
+}
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#ff007f,#00eaff);
+  color:#000;
+  font-weight:700;
+  font-size:17px;
+  text-decoration:none;
+  box-shadow:0 0 18px rgba(0,234,255,0.3);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(0,234,255,0.5);
+}
+.btn.secondary{
+  background:linear-gradient(90deg,#00eaff,#9b51e0);
+}
+.btn.telegram{
+  background:rgba(255,255,255,0.04);
+  color:var(--accent1);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+/* Footer */
+footer{
+  margin-top:28px;
+  text-align:center;
+  font-size:14px;
+  color:#bbb;
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar with logo + name -->
+<div class="topbar">
+  <img src="images/kami_logo.png" alt="Kami Flex">
+  <div class="name">Kami Flex</div>
+</div>
+
+<!-- Center main logo -->
+<header>
+  <img src="images/kami_logo.png" alt="Kami Flex">
+  <h1>⚡ Kami Flex AI ⚡</h1>
+</header>
+
+<!-- Buttons -->
+<div class="container">
+  <a href="aiimage.html" class="btn">🖼️ AI Image Generator</a>
+  <a href="aivideo.html" class="btn secondary">🎬 AI Video Generator</a>
+  <a href="https://t.me/Kami_Broken5" target="_blank" class="btn telegram">📢 Join Telegram</a>
+</div>
+
+<footer>💫 Owner: Kami_Broken — 2025</footer>
+
+</body>
+</html>
