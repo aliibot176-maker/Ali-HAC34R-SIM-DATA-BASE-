@@ -34,7 +34,7 @@
     { "src": "/zong", "dest": "/zong.html" },
     { "src": "/file", "dest": "/file.html" },
     { "src": "/ai.html", "dest": "/ai.html" },
-    { "src": "/aiimage.js", "dest": "/aiimage.js },
+    { "src": "/aiimage.js", "dest": "/aiimage.js" },
     { "src": "/aiimage.html", "dest": "/aiimage.html" },
     { "src": "/aivideo.js", "dest": "/aivideo.js" },
     { "src": "/aivideo.html", "dest": "/aivideo.html" },
