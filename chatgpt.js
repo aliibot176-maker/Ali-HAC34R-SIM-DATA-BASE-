@@ -17,6 +17,7 @@ function applyMode() {
     header.style.webkitTextFillColor = "transparent";
     footer.style.background = "rgba(255,255,255,0.04)";
     input.style.background = "rgba(255,255,255,0.1)";
+    input.style.color = "#fff";
   } else {
     body.style.background = "#f0f0f0";
     body.style.color = "#111";
@@ -93,33 +94,145 @@ function wrapCodeWithCopy(content){
   return content;
 }
 
-// ---------- FETCH RESPONSE ----------
+// ---------- FETCH RESPONSE (Text + Image via API) ----------
 async function fetchAIResponse(prompt,targetDiv){
   try{
-    const res = await fetch(`https://yabes-api.pages.dev/api/ai/chat/ninja-ai?prompt=${encodeURIComponent(prompt)}`);
+    const apiURL = `https://yabes-api.pages.dev/api/ai/chat/ninja-ai?prompt=${encodeURIComponent(prompt)}`;
+    const res = await fetch(apiURL);
     const data = await res.json();
+
     let reply = data.content || data.result || data.response || "";
-    if(typeof reply!=="string") reply = JSON.stringify(reply);
+    if(typeof reply !== "string") reply = JSON.stringify(reply);
 
     const lower = prompt.toLowerCase();
-    const imageURL = data.image_url || data.image || null;
+    const imageURL = data.image_url || data.image || `https://yabes-api.pages.dev/api/ai/chat/ninja-ai?prompt=${encodeURIComponent(prompt)}`;
 
     if(imageURL || lower.includes("generate") || lower.includes("image")){
       targetDiv.innerHTML=`<p>${reply}</p><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
       setTimeout(()=>{
-        const imgSrc = imageURL || `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}`;
-        targetDiv.innerHTML=`<p>${reply}</p><img src="${imgSrc}" alt="Generated Image" onerror="this.remove();">`;
+        targetDiv.innerHTML = `<p>${reply}</p><img src="${imageURL}" alt="Generated Image" onerror="this.remove();">`;
         saveChat();
       },1500);
     } else {
       targetDiv.innerHTML = wrapCodeWithCopy(reply);
     }
+
     chatContainer.scrollTo({top:chatContainer.scrollHeight,behavior:"smooth"});
     saveChat();
-  }catch(err){
+  } catch(err){
     targetDiv.innerHTML = "❌ Error connecting to AI server.";
+    console.error(err);
   }
 }
+
+// ---------- CUSTOM CONFIRM DIALOG ----------
+function customConfirm(message, callback) {
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.5)";
+  overlay.style.display = "flex";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = 9999;
+
+  const dialog = document.createElement("div");
+  dialog.style.background = "linear-gradient(90deg,#ff007f,#00eaff)";
+  dialog.style.padding = "20px";
+  dialog.style.borderRadius = "12px";
+  dialog.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
+  dialog.style.maxWidth = "300px";
+  dialog.style.textAlign = "center";
+  dialog.style.color = "#fff";
+  dialog.style.fontFamily = "Arial, sans-serif";
+
+  const msg = document.createElement("p");
+  msg.textContent = message;
+  msg.style.marginBottom = "20px";
+  dialog.appendChild(msg);
+
+  const btnContainer = document.createElement("div");
+  btnContainer.style.display = "flex";
+  btnContainer.style.justifyContent = "space-between";
+
+  const okBtn = document.createElement("button");
+  okBtn.textContent = "Ok ✅";
+  okBtn.style.flex = "1";
+  okBtn.style.marginRight = "10px";
+  okBtn.style.padding = "6px";
+  okBtn.style.border = "none";
+  okBtn.style.borderRadius = "6px";
+  okBtn.style.cursor = "pointer";
+  okBtn.style.background = "#00eaff";
+  okBtn.style.color = "#111";
+  okBtn.style.fontWeight = "bold";
+  okBtn.addEventListener("click", ()=>{
+    document.body.removeChild(overlay);
+    callback(true);
+  });
+
+  const cancelBtn = document.createElement("button");
+  cancelBtn.textContent = "Cancel ❌";
+  cancelBtn.style.flex = "1";
+  cancelBtn.style.padding = "6px";
+  cancelBtn.style.border = "none";
+  cancelBtn.style.borderRadius = "6px";
+  cancelBtn.style.cursor = "pointer";
+  cancelBtn.style.background = "#ff007f";
+  cancelBtn.style.color = "#fff";
+  cancelBtn.style.fontWeight = "bold";
+  cancelBtn.addEventListener("click", ()=>{
+    document.body.removeChild(overlay);
+    callback(false);
+  });
+
+  btnContainer.appendChild(okBtn);
+  btnContainer.appendChild(cancelBtn);
+  dialog.appendChild(btnContainer);
+  overlay.appendChild(dialog);
+  document.body.appendChild(overlay);
+}
+
+// ---------- CLEAR CHAT BUTTON (Above Send Button, Small) ----------
+const clearBtn = document.createElement("button");
+clearBtn.id = "clearBtn";
+clearBtn.textContent = "Clear Chat";
+clearBtn.style.cssText = `
+  display: block;
+  margin: 4px 0;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg,#ff007f,#00eaff);
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+`;
+clearBtn.addEventListener("mouseenter", ()=>clearBtn.style.opacity="0.8");
+clearBtn.addEventListener("mouseleave", ()=>clearBtn.style.opacity="1");
+
+sendBtn.parentNode.insertBefore(clearBtn, sendBtn);
+
+clearBtn.addEventListener("click", () => {
+    customConfirm("Are you sure you want to clear chat?", (confirmed)=>{
+        if(confirmed){
+            chatContainer.innerHTML = "";
+            localStorage.removeItem("kami_flex_chat");
+        }
+    });
+});
+
+// ---------- SCROLL BUTTON ----------
+chatContainer.addEventListener("scroll",()=>{
+  const nearBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight > 200;
+  scrollBtn.style.display = nearBottom ? "block" : "none";
+});
+scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop = chatContainer.scrollHeight;});
 
 // ---------- SEND ----------
 function sendMessage(){
@@ -130,13 +243,6 @@ function sendMessage(){
   const typingDiv = showTyping();
   fetchAIResponse(prompt,typingDiv);
 }
-
-// ---------- SCROLL BUTTON ----------
-chatContainer.addEventListener("scroll",()=>{
-  const nearBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight > 200;
-  scrollBtn.style.display = nearBottom ? "block" : "none";
-});
-scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop = chatContainer.scrollHeight;});
 
 // ---------- EVENTS ----------
 sendBtn.addEventListener("click",sendMessage);
