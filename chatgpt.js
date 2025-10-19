@@ -1,15 +1,3 @@
-// ---------- DESKTOP ONLY ----------
-if(window.innerWidth < 1024){
-  document.body.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;color:#333;">
-      <div>
-        <h1>🚫 Desktop Version Only</h1>
-        <p>Ye site sirf desktop par access ki ja sakti hai.<br>Please use a desktop device.</p>
-      </div>
-    </div>
-  `;
-} else {
-
 const chatContainer = document.getElementById("chatContainer");
 const sendBtn = document.getElementById("sendBtn");
 const input = document.getElementById("prompt");
@@ -34,16 +22,15 @@ function applyMode() {
 applyMode();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyMode);
 
-// ---------- SAVE + LOAD CHAT ----------
-function saveChat() {
-  const messages = [...chatContainer.querySelectorAll(".message")].map(m => ({
+// ---------- SAVE / LOAD CHAT ----------
+function saveChat(){
+  const messages = [...chatContainer.querySelectorAll(".message")].map(m=>({
     type: m.classList.contains("user")?"user":"bot",
     html: m.innerHTML
   }));
   localStorage.setItem("kami_flex_chat", JSON.stringify(messages));
 }
-
-function loadChat() {
+function loadChat(){
   const saved = localStorage.getItem("kami_flex_chat");
   if(saved){
     JSON.parse(saved).forEach(msg=>{
@@ -67,7 +54,6 @@ function addMessage(content,type){
   saveChat();
   return div;
 }
-
 function showTyping(){
   return addMessage('<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>',"bot");
 }
@@ -96,7 +82,7 @@ function wrapCodeWithCopy(content){
   return content;
 }
 
-// ---------- FETCH RESPONSE (Text + Image via API) ----------
+// ---------- FETCH AI RESPONSE ----------
 async function fetchAIResponse(prompt,targetDiv){
   try{
     const apiURL = `https://yabes-api.pages.dev/api/ai/chat/ninja-ai?prompt=${encodeURIComponent(prompt)}`;
@@ -127,120 +113,50 @@ async function fetchAIResponse(prompt,targetDiv){
   }
 }
 
-// ---------- CUSTOM CONFIRM DIALOG ----------
-function customConfirm(message, callback) {
-  const overlay = document.createElement("div");
-  overlay.style.position = "fixed";
-  overlay.style.top = 0;
-  overlay.style.left = 0;
-  overlay.style.width = "100%";
-  overlay.style.height = "100%";
-  overlay.style.background = "rgba(0,0,0,0.5)";
-  overlay.style.display = "flex";
-  overlay.style.justifyContent = "center";
-  overlay.style.alignItems = "center";
-  overlay.style.zIndex = 9999;
+// ---------- CUSTOM CONFIRM ----------
+function customConfirm(message, callback){
+  const overlay=document.createElement("div");
+  overlay.style.position="fixed"; overlay.style.top=0; overlay.style.left=0;
+  overlay.style.width="100%"; overlay.style.height="100%";
+  overlay.style.background="rgba(0,0,0,0.5)"; overlay.style.display="flex";
+  overlay.style.justifyContent="center"; overlay.style.alignItems="center"; overlay.style.zIndex=9999;
 
-  const dialog = document.createElement("div");
-  dialog.style.background = "linear-gradient(90deg,#ff007f,#00eaff)";
-  dialog.style.padding = "20px";
-  dialog.style.borderRadius = "12px";
-  dialog.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
-  dialog.style.maxWidth = "300px";
-  dialog.style.textAlign = "center";
-  dialog.style.color = "#fff";
-  dialog.style.fontFamily = "Arial, sans-serif";
+  const dialog=document.createElement("div");
+  dialog.style.background="linear-gradient(90deg,#ff007f,#00eaff)";
+  dialog.style.padding="20px"; dialog.style.borderRadius="12px"; dialog.style.textAlign="center";
+  dialog.style.color="#fff"; dialog.style.maxWidth="300px";
 
-  const msg = document.createElement("p");
-  msg.textContent = message;
-  msg.style.marginBottom = "20px";
-  dialog.appendChild(msg);
+  const msg=document.createElement("p"); msg.textContent=message; msg.style.marginBottom="20px"; dialog.appendChild(msg);
 
-  const btnContainer = document.createElement("div");
-  btnContainer.style.display = "flex";
-  btnContainer.style.justifyContent = "space-between";
+  const btnContainer=document.createElement("div"); btnContainer.style.display="flex"; btnContainer.style.justifyContent="space-between";
 
-  const okBtn = document.createElement("button");
-  okBtn.textContent = "Ok ✅";
-  okBtn.style.flex = "1";
-  okBtn.style.marginRight = "10px";
-  okBtn.style.padding = "6px";
-  okBtn.style.border = "none";
-  okBtn.style.borderRadius = "6px";
-  okBtn.style.cursor = "pointer";
-  okBtn.style.background = "#00eaff";
-  okBtn.style.color = "#111";
-  okBtn.style.fontWeight = "bold";
-  okBtn.addEventListener("click", ()=>{
-    document.body.removeChild(overlay);
-    callback(true);
-  });
+  const okBtn=document.createElement("button"); okBtn.textContent="Ok ✅";
+  okBtn.style.flex="1"; okBtn.style.marginRight="10px"; okBtn.style.padding="6px";
+  okBtn.style.border="none"; okBtn.style.borderRadius="6px"; okBtn.style.cursor="pointer";
+  okBtn.style.background="#00eaff"; okBtn.style.color="#111"; okBtn.style.fontWeight="bold";
+  okBtn.addEventListener("click",()=>{document.body.removeChild(overlay);callback(true);});
 
-  const cancelBtn = document.createElement("button");
-  cancelBtn.textContent = "Cancel ❌";
-  cancelBtn.style.flex = "1";
-  cancelBtn.style.padding = "6px";
-  cancelBtn.style.border = "none";
-  cancelBtn.style.borderRadius = "6px";
-  cancelBtn.style.cursor = "pointer";
-  cancelBtn.style.background = "#ff007f";
-  cancelBtn.style.color = "#fff";
-  cancelBtn.style.fontWeight = "bold";
-  cancelBtn.addEventListener("click", ()=>{
-    document.body.removeChild(overlay);
-    callback(false);
-  });
+  const cancelBtn=document.createElement("button"); cancelBtn.textContent="Cancel ❌";
+  cancelBtn.style.flex="1"; cancelBtn.style.padding="6px"; cancelBtn.style.border="none";
+  cancelBtn.style.borderRadius="6px"; cancelBtn.style.cursor="pointer";
+  cancelBtn.style.background="#ff007f"; cancelBtn.style.color="#fff"; cancelBtn.style.fontWeight="bold";
+  cancelBtn.addEventListener("click",()=>{document.body.removeChild(overlay);callback(false);});
 
-  btnContainer.appendChild(okBtn);
-  btnContainer.appendChild(cancelBtn);
-  dialog.appendChild(btnContainer);
-  overlay.appendChild(dialog);
-  document.body.appendChild(overlay);
+  btnContainer.appendChild(okBtn); btnContainer.appendChild(cancelBtn);
+  dialog.appendChild(btnContainer); overlay.appendChild(dialog); document.body.appendChild(overlay);
 }
 
-// ---------- CLEAR CHAT BUTTON ----------
-const clearBtn = document.createElement("button");
-clearBtn.textContent = "Clear Chat";
-clearBtn.style.cssText = `
-  margin-right:10px;
-  padding:8px 12px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(90deg,#ff007f,#00eaff);
-  color:#fff;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:bold;
-`;
-sendBtn.parentNode.insertBefore(clearBtn, sendBtn);
-
-clearBtn.addEventListener("click", () => {
-    customConfirm("Are you sure you want to clear chat?", (confirmed)=>{
-        if(confirmed){
-            chatContainer.innerHTML = "";
-            localStorage.removeItem("kami_flex_chat");
-        }
-    });
-});
+// ---------- CLEAR CHAT ----------
+const clearBtn=document.createElement("button");
+clearBtn.textContent="Clear Chat";
+clearBtn.style.cssText=`margin-right:10px;padding:8px 12px;border:none;border-radius:8px;background:linear-gradient(90deg,#ff007f,#00eaff);color:#fff;cursor:pointer;font-size:12px;font-weight:bold;`;
+sendBtn.parentNode.insertBefore(clearBtn,sendBtn);
+clearBtn.addEventListener("click",()=>{customConfirm("Are you sure you want to clear chat?",confirmed=>{if(confirmed){chatContainer.innerHTML="";localStorage.removeItem("kami_flex_chat");}});});
 
 // ---------- SCROLL BUTTON ----------
-chatContainer.addEventListener("scroll",()=>{
-  const nearBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight > 200;
-  scrollBtn.style.display = nearBottom ? "block" : "none";
-});
-scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop = chatContainer.scrollHeight;});
+chatContainer.addEventListener("scroll",()=>{scrollBtn.style.display=(chatContainer.scrollHeight-chatContainer.scrollTop-chatContainer.clientHeight>200)?"block":"none";});
+scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop=chatContainer.scrollHeight;});
 
 // ---------- SEND MESSAGE ----------
-function sendMessage(){
-  const prompt = input.value.trim();
-  if(!prompt) return;
-  input.value="";
-  addMessage(prompt,"user");
-  const typingDiv = showTyping();
-  fetchAIResponse(prompt,typingDiv);
-}
-
-sendBtn.addEventListener("click",sendMessage);
-input.addEventListener("keydown", e=>{if(e.key==="Enter") sendMessage();});
-
-} // end desktop check
+function sendMessage(){const prompt=input.value.trim();if(!prompt) return; input.value=""; addMessage(prompt,"user"); const typingDiv=showTyping(); fetchAIResponse(prompt,typingDiv);}
+sendBtn.addEventListener("click",sendMessage); input.addEventListener("keydown",e=>{if(e.key==="Enter") sendMessage();});
