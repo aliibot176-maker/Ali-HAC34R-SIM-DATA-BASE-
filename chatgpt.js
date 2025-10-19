@@ -146,17 +146,41 @@ function customConfirm(message, callback){
   dialog.appendChild(btnContainer); overlay.appendChild(dialog); document.body.appendChild(overlay);
 }
 
-// ---------- CLEAR CHAT ----------
-const clearBtn=document.createElement("button");
-clearBtn.textContent="Clear Chat";
-clearBtn.style.cssText=`margin-right:10px;padding:8px 12px;border:none;border-radius:8px;background:linear-gradient(90deg,#ff007f,#00eaff);color:#fff;cursor:pointer;font-size:12px;font-weight:bold;`;
-sendBtn.parentNode.insertBefore(clearBtn,sendBtn);
-clearBtn.addEventListener("click",()=>{customConfirm("Are you sure you want to clear chat?",confirmed=>{if(confirmed){chatContainer.innerHTML="";localStorage.removeItem("kami_flex_chat");}});});
+// ---------- CLEAR CHAT BUTTON ABOVE SEND ----------
+const inputArea = sendBtn.parentNode;
+const clearBtn = document.createElement("button");
+clearBtn.textContent = "Clear";
+clearBtn.style.cssText=`
+  margin-bottom:10px;
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,#ff007f,#00eaff);
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:bold;
+  width:100%;
+`;
+inputArea.insertBefore(clearBtn, inputArea.firstChild);
+clearBtn.addEventListener("click", ()=>{
+    customConfirm("Are you sure you want to clear chat?", (confirmed)=>{
+        if(confirmed){ chatContainer.innerHTML=""; localStorage.removeItem("kami_flex_chat"); }
+    });
+});
 
 // ---------- SCROLL BUTTON ----------
-chatContainer.addEventListener("scroll",()=>{scrollBtn.style.display=(chatContainer.scrollHeight-chatContainer.scrollTop-chatContainer.clientHeight>200)?"block":"none";});
-scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop=chatContainer.scrollHeight;});
+chatContainer.addEventListener("scroll",()=>{ scrollBtn.style.display=(chatContainer.scrollHeight-chatContainer.scrollTop-chatContainer.clientHeight>200)?"block":"none"; });
+scrollBtn.addEventListener("click",()=>{ chatContainer.scrollTop=chatContainer.scrollHeight; });
 
 // ---------- SEND MESSAGE ----------
-function sendMessage(){const prompt=input.value.trim();if(!prompt) return; input.value=""; addMessage(prompt,"user"); const typingDiv=showTyping(); fetchAIResponse(prompt,typingDiv);}
-sendBtn.addEventListener("click",sendMessage); input.addEventListener("keydown",e=>{if(e.key==="Enter") sendMessage();});
+function sendMessage(){ 
+  const prompt=input.value.trim();
+  if(!prompt) return; 
+  input.value=""; 
+  addMessage(prompt,"user"); 
+  const typingDiv=showTyping(); 
+  fetchAIResponse(prompt,typingDiv);
+}
+sendBtn.addEventListener("click",sendMessage);
+input.addEventListener("keydown",e=>{if(e.key==="Enter") sendMessage();});
