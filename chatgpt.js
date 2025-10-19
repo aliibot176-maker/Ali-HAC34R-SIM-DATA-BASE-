@@ -1,9 +1,19 @@
+// ---------- DESKTOP ONLY ----------
+if(window.innerWidth < 1024){
+  document.body.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;color:#333;">
+      <div>
+        <h1>🚫 Desktop Version Only</h1>
+        <p>Ye site sirf desktop par access ki ja sakti hai.<br>Please use a desktop device.</p>
+      </div>
+    </div>
+  `;
+} else {
+
 const chatContainer = document.getElementById("chatContainer");
 const sendBtn = document.getElementById("sendBtn");
 const input = document.getElementById("prompt");
 const scrollBtn = document.getElementById("scrollBtn");
-const header = document.querySelector("header");
-const footer = document.querySelector("footer");
 const body = document.body;
 
 // ---------- Dark/Light Mode ----------
@@ -12,19 +22,11 @@ function applyMode() {
   if(dark){
     body.style.background = "radial-gradient(circle at top,#0a0a18,#060610,#030307)";
     body.style.color = "#fff";
-    header.style.background = "linear-gradient(90deg,#00eaff,#ff007f,#ffea00)";
-    header.style.webkitBackgroundClip = "text";
-    header.style.webkitTextFillColor = "transparent";
-    footer.style.background = "rgba(255,255,255,0.04)";
     input.style.background = "rgba(255,255,255,0.1)";
     input.style.color = "#fff";
   } else {
     body.style.background = "#f0f0f0";
     body.style.color = "#111";
-    header.style.background = "none";
-    header.style.webkitBackgroundClip = "none";
-    header.style.webkitTextFillColor = "#111";
-    footer.style.background = "#e0e0e0";
     input.style.background = "#fff";
     input.style.color = "#111";
   }
@@ -196,26 +198,20 @@ function customConfirm(message, callback) {
   document.body.appendChild(overlay);
 }
 
-// ---------- CLEAR CHAT BUTTON (Above Send Button, Small) ----------
+// ---------- CLEAR CHAT BUTTON ----------
 const clearBtn = document.createElement("button");
-clearBtn.id = "clearBtn";
 clearBtn.textContent = "Clear Chat";
 clearBtn.style.cssText = `
-  display: block;
-  margin: 4px 0;
-  padding: 4px 8px;
-  border: none;
-  border-radius: 6px;
-  background: linear-gradient(90deg,#ff007f,#00eaff);
-  color: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  transition: 0.3s;
+  margin-right:10px;
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,#ff007f,#00eaff);
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:bold;
 `;
-clearBtn.addEventListener("mouseenter", ()=>clearBtn.style.opacity="0.8");
-clearBtn.addEventListener("mouseleave", ()=>clearBtn.style.opacity="1");
-
 sendBtn.parentNode.insertBefore(clearBtn, sendBtn);
 
 clearBtn.addEventListener("click", () => {
@@ -234,7 +230,7 @@ chatContainer.addEventListener("scroll",()=>{
 });
 scrollBtn.addEventListener("click",()=>{chatContainer.scrollTop = chatContainer.scrollHeight;});
 
-// ---------- SEND ----------
+// ---------- SEND MESSAGE ----------
 function sendMessage(){
   const prompt = input.value.trim();
   if(!prompt) return;
@@ -244,6 +240,7 @@ function sendMessage(){
   fetchAIResponse(prompt,typingDiv);
 }
 
-// ---------- EVENTS ----------
 sendBtn.addEventListener("click",sendMessage);
 input.addEventListener("keydown", e=>{if(e.key==="Enter") sendMessage();});
+
+} // end desktop check
