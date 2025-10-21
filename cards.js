@@ -1,5 +1,5 @@
 const cards = [
-  { title: "🎵 Jazz Free TV", desc: "Watch free live Jazz channels and entertainment shows.", img: "images/jazz.png", link: "jazz.html", gradient: "from-purple-500 to-indigo-500" },
+  { title: "🎵 Jazz Free TV", desc: "Watch free live Jazz channels and entertainment shows.", img: "images/jazz.png", link: "jazztv.html", gradient: "from-purple-500 to-indigo-500" },
   { title: "📱 Zong Free TV", desc: "Stream your favorite channels anytime with Zong TV.", img: "images/zong.png", link: "zong.html", gradient: "from-green-500 to-blue-500" },
   { title: "💻 RDP Trial", desc: "Get free RDP trial on AppOnFly.", img: "images/rdp.png", link: "https://app.apponfly.com/trial", gradient: "from-purple-500 to-indigo-500" },
   { title: "📱 Database 2022", desc: "Access updated SIM and database tools.", img: "images/database.png", link: "database.html", gradient: "from-pink-500 to-red-500" },
