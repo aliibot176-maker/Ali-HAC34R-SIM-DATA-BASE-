@@ -1,228 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kami Flex - Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kami Flex - Home</title>
 
-  <!-- ✅ AdSense Verification -->
-  <meta name="google-adsense-account" content="ca-pub-3726211792846627">
+<!-- ✅ AdSense Verification -->
+<meta name="google-adsense-account" content="ca-pub-3726211792846627">
 
-  <!-- ✅ Google AdSense Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
-     crossorigin="anonymous"></script>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .animated-text {
-      background: linear-gradient(270deg, #7e22ce, #db2777, #f59e0b, #10b981);
-      background-size: 800% 800%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientMove 6s ease infinite;
-      font-family: 'Poppins', sans-serif;
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body, header, footer, .sidebar, .card {
+    transition: background-color .4s ease, color .4s ease;
+  }
+  .card {
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: #f3f3f3;
+    color: #1f2937;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  }
+  .sidebar { 
+    transition: left .3s ease; 
+    position: fixed; top:0; left:-260px; width:250px; height:100%; z-index:50; 
+    backdrop-filter: blur(12px); 
+    background-color: white; 
+  }
+  .sidebar.open { left:0; }
+  input, textarea { border: 1px solid; border-radius: 0.5rem; padding: 0.25rem 0.5rem; }
+</style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 font-sans text-gray-900 flex flex-col">
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 
-  <!-- 🔑 LOGIN SCREEN -->
-  <div id="loginScreen" class="flex flex-col items-center justify-center min-h-screen">
-    <h1 class="text-4xl font-extrabold animated-text mb-6">Kami Flex Access</h1>
-    <div class="bg-white/80 p-6 rounded-2xl shadow-xl w-80 text-center">
-      <input type="password" id="accessKey" placeholder="Enter Access Key"
-             class="w-full p-3 rounded-lg border mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500">
-      <button id="loginBtn" onclick="checkKey()"
-              class="w-full py-3 rounded-lg bg-purple-600 text-white font-bold hover:bg-purple-700 transition">🔑 Login</button>
-      <p id="loading" class="hidden text-sm text-gray-600 mt-3 animate-pulse">Loading...</p>
-      <p id="errorMsg" class="hidden text-red-600 mt-3">❌ Invalid Key</p>
-      <a href="https://t.me/Kami_Flex2" target="_blank"
-         class="mt-5 block px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold">📢 Join Telegram</a>
-    </div>
+<!-- Header -->
+<header class="flex items-center justify-between p-4 shadow-md bg-white dark:bg-gray-800">
+  <button id="menuBtn" class="text-2xl">☰</button>
+  <h1 class="text-2xl font-bold text-purple-600 dark:text-purple-400">🌐 Kami Flex</h1>
+  <input id="searchBox" type="text" placeholder="Search..." class="px-3 py-1 rounded-lg w-40 sm:w-64 text-sm bg-gray-100 dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600">
+</header>
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar shadow-lg dark:bg-gray-800">
+  <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+    <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400">Menu</h2>
+    <button id="closeSidebar" class="text-lg font-bold">❌</button>
   </div>
+  <nav class="p-4 space-y-4">
+    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('about')">ℹ️ About</a>
+    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('disclaimer')">⚖️ Disclaimer</a>
+    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('privacy')">🔒 Privacy Policy</a>
+    <a href="https://t.me/Mr_Kaamii" target="_blank" class="block text-lg hover:text-purple-400 sidebar-link">📞 Contact</a>
+  </nav>
+</aside>
 
-  <!-- 🌐 HOME PAGE -->
-  <div id="homePage" class="hidden flex flex-col min-h-screen">
-    <!-- NAVBAR -->
-    <header class="backdrop-blur-sm bg-white/30 sticky top-0 z-40">
-      <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center relative">
-        <div class="flex items-center gap-4">
-          <div class="h-14 w-14 rounded-full bg-gradient-to-tr from-purple-500 via-pink-500 to-yellow-400 flex items-center justify-center shadow-lg">
-            <img src="images/logo.png" alt="Kami Flex Logo" class="h-10 w-10 rounded-full">
-          </div>
-          <h1 class="text-3xl sm:text-4xl font-extrabold animated-text">Kami Flex</h1>
-        </div>
-        <button onclick="toggleMenu()" class="hamburger-btn p-2 rounded-lg bg-white/70 shadow absolute right-6 top-5">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </nav>
-    </header>
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 hidden z-40"></div>
 
-    <!-- ✅ AdSense Ad (Top under navbar) -->
-    <div class="w-full max-w-3xl mx-auto mt-4 px-2">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-3726211792846627"
-           data-ad-slot="3172858862"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
+<!-- Main Cards -->
+<main class="p-6">
+  <h2 class="text-center text-2xl font-bold mb-6">💕 Welcome Back Kami Flex 💕</h2>
+  <div id="cardContainer" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+</main>
 
-    <!-- SIDEBAR MENU -->
-    <div id="sidebar" class="fixed top-0 right-0 w-64 h-full bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-200 shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
-      <div class="p-6 flex flex-col gap-4">
-        <div class="flex items-center justify-between border-b pb-4">
-          <p class="font-bold text-lg">Kami Flex</p>
-          <button onclick="toggleMenu()" class="text-gray-600 hover:text-black">✖</button>
-        </div>
-        <a href="tool.html" class="block px-4 py-2 rounded-lg bg-green-500 text-white font-semibold">🛠 Tools</a>
-        <a href="database.html" class="block px-4 py-2 rounded-lg bg-purple-500 text-white font-semibold">📱 Database 2022</a>
-        <a href="https://t.me/Kami_Flex2" target="_blank" class="block px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold">📢 Telegram</a>
-        <div class="mt-auto pt-6 border-t">
-          <button onclick="logout()" class="w-full px-4 py-2 rounded-lg bg-red-500 text-white font-semibold text-left">🚪 Logout</button>
-        </div>
-      </div>
-    </div>
+<!-- Comment Section -->
+<div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg my-6 max-w-2xl mx-auto">
+  <h3 class="text-lg font-bold mb-4 text-purple-600 dark:text-purple-400">💬 Leave a Comment</h3>
+  <input id="commentName" type="text" placeholder="Your Name" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+  <textarea id="commentMessage" placeholder="Your Comment" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
+  <button onclick="postComment()" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Post Comment</button>
 
-    <!-- MAIN CONTENT -->
-    <main id="mainContent" class="flex-grow flex flex-col items-center justify-center text-center px-6 py-16">
-      <h1 class="text-4xl font-extrabold text-gray-900 mb-4">🎉 Welcome to Kami Flex!</h1>
-      <p class="text-lg text-gray-700 max-w-xl mb-8">
-        You have successfully logged in with your access key.
-      </p>
-      <div class="grid gap-6 w-full max-w-lg">
-        <a href="jazztv.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/jazz.png" alt="Jazz Free TV Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">📺 Jazz Free TV</span>
-        </a>
-        <a href="zong.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/zong.png" alt="Zong Free TV Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">📺 Zong Free TV</span>
-        </a>
-        <a href="https://app.apponfly.com/trial"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/rdp.png" alt="RDP Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">💻 RDP Trial</span>
-        </a>
-        <a href="database.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/database.png" alt="Database Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">📱 Database 2022</span>
-        </a>
-        <a href="ads.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/zong.png" alt="Zong TV Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">Ads Check ✅</span>
-        </a>
-        <a href="file.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-teal-400 to-cyan-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/file.png" alt="File Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">Free Internet Files 🗃️</span>
-        </a>
-        <a href="temp.html"
-           class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-400 to-indigo-600 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-          <img src="images/temp.png" alt="Temp Mail Logo" class="h-12 w-12 rounded-full bg-white p-2">
-          <span class="text-xl">⚡ Temp Mail ⚡</span>
-        <a href="sms.html"
-     class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-    <img src="images/sms.png" alt="SMS Bomber Logo" class="h-12 w-12 rounded-full bg-white p-2">
-    <span class="text-xl">📱 SMS Bomber</span>
-        </a>
-          <a href="ai.html"
-   class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
-  <img src="images/ai.png" alt="AI Generator Logo" class="h-12 w-12 rounded-full bg-white p-2">
-  <span class="text-xl">🤖 AI FUTURE</span>
-          </a>
-      </div>
+  <div id="commentsContainer" class="mt-4 space-y-4"></div>
+</div>
 
-     <!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
-     crossorigin="anonymous"></script>
+<!-- Footer -->
+<footer class="text-center py-5 mt-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+  © 2025 Kami Flex | All rights reserved
+</footer>
 
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3726211792846627"
-     data-ad-slot="3172858862"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
+<!-- Modal -->
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-11/12 text-gray-900 dark:text-white">
+    <h2 id="modalTitle" class="text-xl font-bold mb-2 text-purple-600 dark:text-purple-400"></h2>
+    <p id="modalContent" class="text-sm"></p>
+    <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Close</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="cards.js"></script>
 <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
+  // Sidebar
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeSidebar');
+  const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+  menuBtn.addEventListener('click', ()=>{
+    sidebar.classList.add('open');
+    overlay.classList.remove('hidden');
+  });
+  closeBtn.addEventListener('click', closeSide);
+  overlay.addEventListener('click', closeSide);
+  sidebarLinks.forEach(link => link.addEventListener('click', closeSide));
+  function closeSide(){ sidebar.classList.remove('open'); overlay.classList.add('hidden'); }
+
+  // Modal
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalContent = document.getElementById('modalContent');
+  function openModal(type){
+    modal.classList.remove('hidden');
+    if(type==='about'){
+      modalTitle.textContent = 'About Kami Flex';
+      modalContent.textContent = 'Kami Flex is a modern platform offering digital tools, entertainment, and learning resources. Explore tech, AI, and fun projects.';
+    } else if(type==='disclaimer'){
+      modalTitle.textContent = 'Disclaimer';
+      modalContent.textContent = 'All content is for educational purposes only.';
+    } else if(type==='privacy'){
+      modalTitle.textContent = 'Privacy Policy';
+      modalContent.textContent = 'Kami Flex does not store your personal data.';
+    }
+  }
+  function closeModal(){ modal.classList.add('hidden'); }
+
+  // Comment Function
+  function postComment() {
+    const name = document.getElementById('commentName').value.trim();
+    const message = document.getElementById('commentMessage').value.trim();
+    if(!name || !message){
+      alert("Please enter both name and comment.");
+      return;
+    }
+
+    const container = document.getElementById('commentsContainer');
+    const commentDiv = document.createElement('div');
+    commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
+    commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
+
+    container.prepend(commentDiv);
+
+    document.getElementById('commentName').value = '';
+    document.getElementById('commentMessage').value = '';
+  }
+
+  // Dark mode auto
+  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add('dark');
+  }
 </script>
-      </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="py-6 text-sm opacity-90 text-gray-800 text-center">
-      <div class="font-bold">Kami Flex</div>
-      <div>© 2025 All rights reserved</div>
-    </footer>
-  </div>
-
-  <!-- SCRIPT -->
-  <script>
-    const correctKey = "12345"; // 🔑 Change apni key
-
-    window.onload = function(){
-      if(localStorage.getItem("kamiFlexLogin") === "true"){
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("homePage").classList.remove("hidden");
-      }
-    }
-
-    function checkKey(){
-      const key = document.getElementById("accessKey").value.trim();
-      const errorMsg = document.getElementById("errorMsg");
-      const loading = document.getElementById("loading");
-      const loginBtn = document.getElementById("loginBtn");
-
-      errorMsg.classList.add("hidden");
-
-      if(key === correctKey){
-        loginBtn.disabled = true;
-        loading.classList.remove("hidden");
-        setTimeout(() => {
-          document.getElementById("loginScreen").style.display = "none";
-          document.getElementById("homePage").classList.remove("hidden");
-          localStorage.setItem("kamiFlexLogin", "true");
-        }, 2000);
-      } else {
-        errorMsg.classList.remove("hidden");
-      }
-    }
-
-    function toggleMenu(){
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("translate-x-full");
-    }
-
-    function logout(){
-      localStorage.removeItem("kamiFlexLogin");
-      document.getElementById("homePage").classList.add("hidden");
-      document.getElementById("loginScreen").style.display = "flex";
-      document.getElementById("accessKey").value = "";
-      document.getElementById("loginBtn").disabled = false;
-      document.getElementById("loading").classList.add("hidden");
-      toggleMenu();
-    }
-
-    document.getElementById("mainContent").addEventListener("click", () => {
-      const sidebar = document.getElementById("sidebar");
-      if (!sidebar.classList.contains("translate-x-full")) {
-        sidebar.classList.add("translate-x-full");
-      }
-    });
-  </script>
 </body>
 </html>
