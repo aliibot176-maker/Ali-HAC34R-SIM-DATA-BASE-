@@ -2,6 +2,7 @@
   "version": 2,
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
+    { "src": "cards.js", "use": "@vercel/static" },
     { "src": "tool.html", "use": "@vercel/static" },
     { "src": "jazztv.html", "use": "@vercel/static" },
     { "src": "jazz.html", "use": "@vercel/static" },
@@ -30,6 +31,7 @@
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
+    { "src": "/", "dest": "/cards.js" },
     { "src": "/tool", "dest": "/tool.html" },
     { "src": "/jazztv", "dest": "/jazztv.html" },
     { "src": "/jazz", "dest": "/jazz.html" },
@@ -55,3 +57,4 @@
     { "src": "/database", "dest": "/database.html" }
   ]
 }
+
