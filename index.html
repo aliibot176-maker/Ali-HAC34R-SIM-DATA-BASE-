@@ -8,10 +8,6 @@
 <!-- ✅ AdSense Verification -->
 <meta name="google-adsense-account" content="ca-pub-3726211792846627">
 
-<!-- ✅ Google AdSense Script -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
-     crossorigin="anonymous"></script>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body, header, footer, .sidebar, .card {
@@ -77,20 +73,17 @@
   </div>
   <h2 class="text-center text-2xl font-bold mb-6">💕 Welcome Back Kami Flex 💕</h2>
   <div id="cardContainer" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
-</main>
 
-<!-- ✅ Google AdSense Display Ad -->
-<div class="my-6 text-center">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-3726211792846627"
-       data-ad-slot="6856773766"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
+  <!-- ✅ 1st Ad -->
+  <div class="my-6 text-center">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3726211792846627"
+         data-ad-slot="6856773766"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+</main>
 
 <!-- Comment Section -->
 <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg my-6 max-w-2xl mx-auto">
@@ -100,6 +93,26 @@
   <button onclick="postComment()" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Post Comment</button>
 
   <div id="commentsContainer" class="mt-4 space-y-4"></div>
+
+  <!-- ✅ 2nd Ad -->
+  <div class="my-6 text-center">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3726211792846627"
+         data-ad-slot="3172858862"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+</div>
+
+<!-- ✅ 3rd Ad (Fluid layout above footer) -->
+<div class="my-6 text-center">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-format="fluid"
+       data-ad-layout-key="-76+ey-4-4z+97"
+       data-ad-client="ca-pub-3726211792846627"
+       data-ad-slot="3655895351"></ins>
 </div>
 
 <!-- Footer -->
@@ -118,6 +131,8 @@
 
 <!-- Scripts -->
 <script src="cards.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
+     crossorigin="anonymous"></script>
 <script>
   // Sidebar
   const sidebar = document.getElementById('sidebar');
@@ -167,12 +182,26 @@
     const commentDiv = document.createElement('div');
     commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
     commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
-
     container.prepend(commentDiv);
 
     document.getElementById('commentName').value = '';
     document.getElementById('commentMessage').value = '';
   }
+
+  // ✅ Ad auto-retry to ensure ads always load
+  function loadAds() {
+    try {
+      document.querySelectorAll('.adsbygoogle').forEach(ad => {
+        if (!ad.dataset.loaded) {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          ad.dataset.loaded = true;
+        }
+      });
+    } catch (e) { console.log("Ad reload error:", e); }
+  }
+  loadAds();
+  setTimeout(loadAds, 5000);
+  setTimeout(loadAds, 10000);
 
   // Dark mode auto
   if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
