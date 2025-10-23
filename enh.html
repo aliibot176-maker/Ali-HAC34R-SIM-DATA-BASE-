@@ -3,19 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kami Image Enhancer</title>
-<link rel="stylesheet" href="style.css">
+<title>Kami Flex - Image Enhancer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { background-color: #f8f4ff; font-family: 'Poppins', sans-serif; }
+.card { max-width: 500px; margin: 40px auto; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); text-align: center; }
+h2 { font-size: 1.75rem; color: #6b21a8; margin-bottom: 20px; }
+input[type="file"] { width: 100%; padding: 10px; border: 2px dashed #9333ea; border-radius: 12px; cursor: pointer; }
+button { background: #9333ea; color: white; padding: 12px; width: 100%; margin-top: 20px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+.loader { border: 5px solid #eee; border-top: 5px solid #9333ea; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#preview, #enhanced { margin-top: 15px; max-width: 100%; border-radius: 12px; display: none; }
+a.download-btn { display: inline-block; margin-top: 15px; padding: 10px 18px; background: #6b21a8; color: white; text-decoration: none; border-radius: 12px; font-weight: 600; display: none; }
+</style>
 </head>
 <body>
 
 <div class="card">
-  <h2>✨ Kami Image Enhancer</h2>
+  <h2>🌐 Kami Flex Image Enhancer</h2>
   <input type="file" id="upload" accept="image/*">
   <img id="preview" alt="Preview">
   <button id="enhanceBtn" disabled>Enhance Image</button>
   <div class="loader" id="loader"></div>
   <img id="enhanced" alt="Enhanced Image">
-  <a id="downloadBtn" class="download-btn" href="#" download="enhanced.png">Download Image</a>
+  <a id="downloadBtn" class="download-btn" href="#" download="enhanced.png">Download Enhanced</a>
 </div>
 
 <script>
@@ -28,45 +40,31 @@ const downloadBtn = document.getElementById("downloadBtn");
 
 let uploadedUrl = "";
 
-upload.addEventListener("change", async (e) => {
+// Preview only (Kami Flex design)
+upload.addEventListener("change", (e)=>{
   const file = e.target.files[0];
-  if (!file) return;
+  if(!file) return;
 
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = ()=>{
     preview.src = reader.result;
     preview.style.display = "block";
-  };
+  }
   reader.readAsDataURL(file);
 
-  enhanceBtn.disabled = true;
-  loader.style.display = "block";
-
-  try {
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image: await fileToBase64(file) })
-    });
-    const data = await res.json();
-    uploadedUrl = data.url;
-    enhanceBtn.disabled = false;
-  } catch (err) {
-    alert("Upload failed. Try again.");
-    console.error(err);
-  }
-
-  loader.style.display = "none";
+  // Enable enhance button for testing (without API, can disable in real workflow)
+  enhanceBtn.disabled = false;
 });
 
-enhanceBtn.addEventListener("click", async () => {
-  if (!uploadedUrl) return;
+enhanceBtn.addEventListener("click", async ()=>{
+  if(!preview.src) { alert("Please upload an image first."); return; }
 
   loader.style.display = "block";
   enhanceBtn.disabled = true;
 
   try {
-    const apiUrl = `https://image-enhance.apis-bj-devs.workers.dev/?imageurl=${encodeURIComponent(uploadedUrl)}`;
+    // Example: Enhance API call (replace uploadedUrl with actual public URL in real usage)
+    const apiUrl = `https://image-enhance.apis-bj-devs.workers.dev/?imageurl=${encodeURIComponent(preview.src)}`;
     const response = await fetch(apiUrl);
     const blob = await response.blob();
     const enhancedURL = URL.createObjectURL(blob);
@@ -75,23 +73,15 @@ enhanceBtn.addEventListener("click", async () => {
     enhanced.style.display = "block";
     downloadBtn.href = enhancedURL;
     downloadBtn.style.display = "inline-block";
-  } catch (err) {
-    alert("⚠️ Error enhancing image. Try again later.");
+  } catch(err) {
+    alert("Error enhancing image. Try again later.");
     console.error(err);
   }
 
   loader.style.display = "none";
   enhanceBtn.disabled = false;
 });
-
-function fileToBase64(file){
-  return new Promise((resolve, reject)=>{
-    const reader = new FileReader();
-    reader.onload = ()=>resolve(reader.result);
-    reader.onerror = error => reject(error);
-    reader.readAsDataURL(file);
-  });
-}
 </script>
+
 </body>
 </html>
