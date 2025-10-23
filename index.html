@@ -8,19 +8,21 @@
 <!-- ✅ AdSense Verification -->
 <meta name="google-adsense-account" content="ca-pub-3726211792846627">
 
-<!-- ✅ Favicon / Logo for Search Result -->
-<link rel="icon" type="image/png" href="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
+<!-- ✅ Kami Flex Logo Setup + SEO + App Icons -->
+<link rel="icon" type="image/png" sizes="192x192" href="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6b21a8">
 
-<!-- ✅ Organization Schema (Google Knowledge Panel & Logo Recognition) -->
+<!-- ✅ Organization Schema for Google Logo Display -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Kami Flex",
-  "url": "kami-database.vercel.app",
+  "url": "https://kami-database.vercel.app",
   "logo": "https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg",
   "sameAs": [
-    "https://t.me/Kami_Flex2",
     "https://t.me/Kami_Flex2",
     "https://t.me/Mr_Kaamii"
   ]
@@ -121,6 +123,7 @@
 <!-- Scripts -->
 <script src="cards.js"></script>
 <script>
+  // Sidebar
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
   const menuBtn = document.getElementById('menuBtn');
@@ -136,6 +139,7 @@
   sidebarLinks.forEach(link => link.addEventListener('click', closeSide));
   function closeSide(){ sidebar.classList.remove('open'); overlay.classList.add('hidden'); }
 
+  // Modal
   const modal = document.getElementById('modal');
   const modalTitle = document.getElementById('modalTitle');
   const modalContent = document.getElementById('modalContent');
@@ -154,6 +158,7 @@
   }
   function closeModal(){ modal.classList.add('hidden'); }
 
+  // Comment Function
   function postComment() {
     const name = document.getElementById('commentName').value.trim();
     const message = document.getElementById('commentMessage').value.trim();
@@ -161,15 +166,19 @@
       alert("Please enter both name and comment.");
       return;
     }
+
     const container = document.getElementById('commentsContainer');
     const commentDiv = document.createElement('div');
     commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
     commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
+
     container.prepend(commentDiv);
+
     document.getElementById('commentName').value = '';
     document.getElementById('commentMessage').value = '';
   }
 
+  // Dark mode auto
   if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
     document.body.classList.add('dark');
   }
