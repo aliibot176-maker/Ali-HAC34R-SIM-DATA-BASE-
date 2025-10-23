@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kami Image Enhancer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>✨ Kami Image Enhancer</h2>
+  <input type="file" id="upload" accept="image/*">
+  <img id="preview" alt="Preview">
+  <button id="enhanceBtn" disabled>Enhance Image</button>
+  <div class="loader" id="loader"></div>
+  <img id="enhanced" alt="Enhanced Image">
+  <a id="downloadBtn" class="download-btn" href="#" download="enhanced.png">Download Image</a>
+</div>
+
+<script>
+const upload = document.getElementById("upload");
+const preview = document.getElementById("preview");
+const enhanceBtn = document.getElementById("enhanceBtn");
+const loader = document.getElementById("loader");
+const enhanced = document.getElementById("enhanced");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let uploadedUrl = "";
+
+upload.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    preview.src = reader.result;
+    preview.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+
+  enhanceBtn.disabled = true;
+  loader.style.display = "block";
+
+  try {
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: await fileToBase64(file) })
+    });
+    const data = await res.json();
+    uploadedUrl = data.url;
+    enhanceBtn.disabled = false;
+  } catch (err) {
+    alert("Upload failed. Try again.");
+    console.error(err);
+  }
+
+  loader.style.display = "none";
+});
+
+enhanceBtn.addEventListener("click", async () => {
+  if (!uploadedUrl) return;
+
+  loader.style.display = "block";
+  enhanceBtn.disabled = true;
+
+  try {
+    const apiUrl = `https://image-enhance.apis-bj-devs.workers.dev/?imageurl=${encodeURIComponent(uploadedUrl)}`;
+    const response = await fetch(apiUrl);
+    const blob = await response.blob();
+    const enhancedURL = URL.createObjectURL(blob);
+
+    enhanced.src = enhancedURL;
+    enhanced.style.display = "block";
+    downloadBtn.href = enhancedURL;
+    downloadBtn.style.display = "inline-block";
+  } catch (err) {
+    alert("⚠️ Error enhancing image. Try again later.");
+    console.error(err);
+  }
+
+  loader.style.display = "none";
+  enhanceBtn.disabled = false;
+});
+
+function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = ()=>resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+</script>
+</body>
+</html>
