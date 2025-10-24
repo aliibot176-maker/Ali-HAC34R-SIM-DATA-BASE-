@@ -31,6 +31,7 @@
     { "src": "database.js", "use": "@vercel/node" },
     { "src": "upload.js", "use": "@vercel/node" },
     { "src": "enh.html", "use": "@vercel/static" },
+    { "src": "manifast.json", "use": "@vercel/static" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
@@ -62,6 +63,7 @@
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/api/(.*)", "dest": "/upload.js" },
     { "src": "/enh", "dest": "/enh.html" },
+    { "src": "/manifast", "dest": "/manifast.json" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
