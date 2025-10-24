@@ -32,6 +32,9 @@
     { "src": "upload.js", "use": "@vercel/node" },
     { "src": "enh.html", "use": "@vercel/static" },
     { "src": "manifest.json", "use": "@vercel/static" },
+    { "src": "disclaimer.html", "use": "@vercel/static" },
+    { "src": "privacy.html", "use": "@vercel/static" },
+    { "src": "about.html", "use": "@vercel/static" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
