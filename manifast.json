@@ -3,17 +3,17 @@
   "short_name": "KamiFlex",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#111827",
+  "background_color": "#6b21a8",
   "theme_color": "#6b21a8",
-  "description": "Kami Flex — Explore, Learn & Enjoy Digital Tools!",
+  "description": "Kami Flex - Explore digital tools, AI, and fun entertainment projects.",
   "icons": [
     {
-      "src": "https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg",
+      "src": "https://i.postimg.cc/wvVLT7dR/card.jpg",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg",
+      "src": "https://i.postimg.cc/wvVLT7dR/card.jpg",
       "sizes": "512x512",
       "type": "image/png"
     }
