@@ -76,9 +76,9 @@
     <button id="closeSidebar" class="text-lg font-bold">❌</button>
   </div>
   <nav class="p-4 space-y-4">
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('about')">ℹ️ About</a>
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('disclaimer')">⚖️ Disclaimer</a>
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('privacy')">🔒 Privacy Policy</a>
+    <a href="about.html" class="block text-lg hover:text-purple-400 sidebar-link">ℹ️ About</a>
+    <a href="disclaimer.html" class="block text-lg hover:text-purple-400 sidebar-link">⚖️ Disclaimer</a>
+    <a href="privacy.html" class="block text-lg hover:text-purple-400 sidebar-link">🔒 Privacy Policy</a>
     <a href="https://t.me/Mr_Kaamii" target="_blank" class="block text-lg hover:text-purple-400 sidebar-link">📞 Contact</a>
   </nav>
 </aside>
@@ -188,7 +188,7 @@
     commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
 
     container.prepend(commentDiv);
-
+    
     document.getElementById('commentName').value = '';
     document.getElementById('commentMessage').value = '';
   }
