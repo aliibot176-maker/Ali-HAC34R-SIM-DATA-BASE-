@@ -64,6 +64,9 @@
     { "src": "/api/(.*)", "dest": "/upload.js" },
     { "src": "/enh", "dest": "/enh.html" },
     { "src": "/manifest", "dest": "/manifest.json" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/disclaimer", "dest": "/disclaimer.html" },
+    { "src": "/about", "dest": "/about.html" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
