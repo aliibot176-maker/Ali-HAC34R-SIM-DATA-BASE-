@@ -9,8 +9,8 @@
 <meta name="google-adsense-account" content="ca-pub-3726211792846627">
 
 <!-- ✅ Kami Flex Logo Setup + SEO + App Icons -->
-<link rel="icon" type="image/png" sizes="192x192" href="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
+<link rel="icon" type="image/png" sizes="192x192" href="https://i.postimg.cc/wvVLT7dR/card.jpg">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/wvVLT7dR/card.jpg">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6b21a8">
 
@@ -21,7 +21,7 @@
   "@type": "Organization",
   "name": "Kami Flex",
   "url": "https://kami-database.vercel.app",
-  "logo": "https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg",
+  "logo": "https://i.postimg.cc/wvVLT7dR/card.jpg",
   "sameAs": [
     "https://t.me/Kami_Flex2",
     "https://t.me/Mr_Kaamii"
@@ -59,6 +59,7 @@
   input, textarea { border: 1px solid; border-radius: 0.5rem; padding: 0.25rem 0.5rem; }
 </style>
 </head>
+
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 
 <!-- Header -->
@@ -75,9 +76,9 @@
     <button id="closeSidebar" class="text-lg font-bold">❌</button>
   </div>
   <nav class="p-4 space-y-4">
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('about')">ℹ️ About</a>
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('disclaimer')">⚖️ Disclaimer</a>
-    <a href="#" class="block text-lg hover:text-purple-400 sidebar-link" onclick="openModal('privacy')">🔒 Privacy Policy</a>
+    <a href="about.html" class="block text-lg hover:text-purple-400 sidebar-link">ℹ️ About</a>
+    <a href="disclaimer.html" class="block text-lg hover:text-purple-400 sidebar-link">⚖️ Disclaimer</a>
+    <a href="privacy.html" class="block text-lg hover:text-purple-400 sidebar-link">🔒 Privacy Policy</a>
     <a href="https://t.me/Mr_Kaamii" target="_blank" class="block text-lg hover:text-purple-400 sidebar-link">📞 Contact</a>
   </nav>
 </aside>
@@ -95,6 +96,20 @@
   <h2 class="text-center text-2xl font-bold mb-6">💕 Welcome Back Kami Flex 💕</h2>
   <div id="cardContainer" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
 </main>
+
+<!-- AdSense Slot - Footer ke just upar -->
+<div class="p-6 text-center">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
+       crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-format="autorelaxed"
+       data-ad-client="ca-pub-3726211792846627"
+       data-ad-slot="7234614494"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 
 <!-- Comment Section -->
 <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg my-6 max-w-2xl mx-auto">
@@ -173,7 +188,7 @@
     commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
 
     container.prepend(commentDiv);
-
+    
     document.getElementById('commentName').value = '';
     document.getElementById('commentMessage').value = '';
   }

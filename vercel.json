@@ -31,6 +31,12 @@
     { "src": "database.js", "use": "@vercel/node" },
     { "src": "upload.js", "use": "@vercel/node" },
     { "src": "enh.html", "use": "@vercel/static" },
+    { "src": "manifest.json", "use": "@vercel/static" },
+    { "src": "disclaimer.html", "use": "@vercel/static" },
+    { "src": "privacy.html", "use": "@vercel/static" },
+    { "src": "about.html", "use": "@vercel/static" },
+    { "src": "tamsha.html", "use": "@vercel/static" },
+    { "src": "tamsha.js", "use": "@vercel/static" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
@@ -62,6 +68,12 @@
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/api/(.*)", "dest": "/upload.js" },
     { "src": "/enh", "dest": "/enh.html" },
+    { "src": "/manifest", "dest": "/manifest.json" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/disclaimer", "dest": "/disclaimer.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/tamsha", "dest": "/tamsha.js" },
+    { "src": "/tamsha", "dest": "/tamsha.html" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }

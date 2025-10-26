@@ -8,6 +8,9 @@ const cards = [
   { title: "⚡ Temp Mail ⚡", desc: "Generate temporary email addresses.", img: "images/temp.png", link: "temp.html", gradient: "from-purple-400 to-indigo-600" },
   { title: "📱 SMS Bomber", desc: "Test SMS sending for educational purposes.", img: "images/sms.png", link: "sms.html", gradient: "from-red-500 to-pink-500" },
   { title: "🤖 AI FUTURE", desc: "Generate images, text, and more with AI.", img: "images/ai.png", link: "ai.html", gradient: "from-blue-500 to-purple-500" },
+
+  // ✅ New Tamasha Packages card
+  { title: "📱 Tamasha Packages", desc: "Activate your Tamasha packages easily with OTP.", img: "images/tamsha.png", link: "tamsha.html", gradient: "from-pink-500 to-yellow-400" },
 ];
 
 // Grab card container and search box

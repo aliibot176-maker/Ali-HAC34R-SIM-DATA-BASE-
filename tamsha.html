@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tamasha Packages — Kami Flex</title>
+<link rel="icon" href="https://i.postimg.cc/wvVLT7dR/card.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ Monetag verification -->
+<meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
+
+<style>
+:root{
+  --accent1:#00eaff;
+  --accent2:#ff007f;
+  --card-bg:rgba(255,255,255,0.05);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+body{
+  background:linear-gradient(120deg,#0b0c1a,#12092a,#1b0b18);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  max-width:480px;
+  background:rgba(255,255,255,0.03);
+  border-radius:999px;
+  padding:8px 14px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.36);
+  backdrop-filter:blur(6px);
+  margin-top:20px;
+}
+header img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.2);}
+header h1{font-size:18px;font-weight:700;text-align:center;flex:1;margin:0 10px;background:linear-gradient(90deg,#00eaff,#ff007f,#ffea00,#00eaff,#ff007f);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 4s linear infinite;}
+@keyframes gradientMove{0%{background-position:0% 0%;}50%{background-position:100% 0%;}100%{background-position:0% 0%;}}
+.card{width:100%;max-width:480px;background:var(--card-bg);border-radius:16px;padding:24px;margin-top:40px;border:1px solid rgba(255,255,255,0.2);box-shadow:0 0 30px rgba(0,234,255,0.15);backdrop-filter:blur(6px);}
+h2{text-align:center;margin-bottom:15px;color:var(--accent1);}
+input[type="text"], input[type="tel"], select{
+  width:100%;padding:14px;border-radius:12px;border:none;background:rgba(255,255,255,0.1);color:white;margin-bottom:12px;font-size:15px;outline:none;
+}
+input:focus, select:focus{box-shadow:0 0 10px var(--accent1);}
+button{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(90deg,var(--accent2),var(--accent1));color:white;font-weight:600;cursor:pointer;transition:0.3s;margin-bottom:12px;}
+button:hover{transform:scale(1.05);box-shadow:0 0 15px var(--accent1);}
+#loader{display:none;text-align:center;margin-top:18px;}
+.loader{border:5px solid rgba(255,255,255,0.1);border-top:5px solid var(--accent1);border-radius:50%;width:45px;height:45px;animation:spin 1s linear infinite;margin:10px auto;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+#responseBlock{margin-top:18px; display:none;}
+.success { color:#065f46; background:#ecfdf5; padding:10px; border-radius:8px; border:1px solid #bbf7d0; }
+.error { color:#7f1d1d; background:#fff1f2; padding:10px; border-radius:8px; border:1px solid #fecaca; }
+.cols { display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+.center { text-align:center; }
+.inline { display:inline-block; vertical-align:middle; }
+.selected { border:2px solid var(--accent1); }
+@media (max-width:640px){ .cols { grid-template-columns: 1fr; } .inline { display:block; margin-top:8px; } }
+
+/* Ads container styling */
+.ad-top{
+  width:100%;
+  max-width:480px;
+  margin:18px 0;
+  display:flex;
+  justify-content:center;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.postimg.cc/wvVLT7dR/card.jpg" alt="Logo Left">
+  <h1>⚡ Kami Flex — Tamasha Packages ⚡</h1>
+  <img src="https://i.postimg.cc/wvVLT7dR/card.jpg" alt="Logo Right">
+</header>
+
+<!-- Top Ad Container -->
+<div class="ad-top">
+  <script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
+</div>
+
+<section class="card">
+  <h2>📱 OTP Activation</h2>
+  <input id="msisdn" type="tel" inputmode="numeric" placeholder="+923XXXXXXXXX" maxlength="14" />
+  
+  <div class="cols" style="margin-top:10px;">
+    <div>
+      <input id="otp" type="text" placeholder="Enter OTP" maxlength="8" />
+    </div>
+    <div class="center" style="align-self:end;">
+      <div class="flex items-center justify-center gap-2">
+        <button id="getOtpBtn">Get OTP</button>
+        <div id="otpStatus" class="inline"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-4" style="margin-top:14px;">
+    <button id="activate1Btn">1 Day — 2 GB</button>
+    <button id="activate3Btn">3 Day — 5 GB</button>
+    <button id="activate7Btn">Weekly — 10 GB</button>
+    <button id="activate30Btn">Monthly — 25 GB</button>
+  </div>
+
+  <div id="loader"><div class="loader"></div><p>Processing...</p></div>
+
+  <div id="responseBlock">
+    <div id="responseMsg"></div>
+  </div>
+</section>
+
+<footer>💫 Powered by Kami Flex — 2025</footer>
+
+<script src="tamsha.js"></script>
+</body>
+</html>

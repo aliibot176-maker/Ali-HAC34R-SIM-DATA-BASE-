@@ -1,0 +1,21 @@
+{
+  "name": "Kami Flex",
+  "short_name": "Kami Flex",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#6b21a8",
+  "theme_color": "#6b21a8",
+  "description": "Kami Flex - Explore digital tools, AI, and fun entertainment projects.",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/wvVLT7dR/card.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/wvVLT7dR/card.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
